@@ -4,8 +4,26 @@
 
 <p>This is Blazor practice page.</p>
 
-<p>変数 = @Text</p>
+<h2>変数</h2>
+<!--@@変数名でC#の変数を参照。-->
+<p>@Text</p>
+
+
+<h2>ボタン</h2>
+<!--@@onclick="イベント名"でクリックイベント-->
+<button class="@ButtonClass" @onclick="ChangeButtonTitle">@ButtonTitle</button>
 
 @code {
     private string Text = "Sample Variable";
+
+    private string ButtonTitle = "Click me";
+    private string ButtonClass = "btn btn-primary";
+    private void ChangeButtonTitle()
+    {
+        // ON <-> OFF とボタンの色を変更
+        ButtonTitle = ButtonTitle == "ON" ? "OFF" : "ON";
+        ButtonClass = ButtonClass == "btn btn-outline-primary" ?
+            "btn btn-outline-secondary" : "btn btn-outline-primary";
+
+    }
 }
