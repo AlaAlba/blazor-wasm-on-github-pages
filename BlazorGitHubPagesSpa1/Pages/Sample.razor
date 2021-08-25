@@ -4,6 +4,7 @@
 
 <p>This is Blazor practice page.</p>
 
+
 <h2>変数</h2>
 <!--@@変数名でC#の変数を参照。-->
 <p>@Text</p>
@@ -12,6 +13,7 @@
 <h2>ボタン</h2>
 <!--@@onclick="イベント名"でクリックイベント-->
 <button class="@ButtonClass" @onclick="ChangeButtonTitle">@ButtonTitle</button>
+
 
 <h2>レンダリング</h2>
 
@@ -29,9 +31,25 @@
     }
 </ul>
 
+<h2>データバインディング</h2>
+<!-- https://docs.microsoft.com/ja-jp/dotnet/architecture/blazor-for-web-forms-developers/components -->
+Password:
+<input value="@Password"
+       @oninput="OnPasswordChanged"
+       type="@(showPassword ? "text" : "password")" />
+
+<label><input type="checkbox" @bind="showPassword" />Show password</label>
+
+
+<h2>コンポーネント</h2>
+<CounterComponent />
 
 @code {
+    // 変数Sample
+
     private string Text = "Sample Variable";
+
+    // ボタンSample
 
     private string ButtonTitle = "Click me";
     private string ButtonClass = "btn btn-primary";
@@ -44,9 +62,28 @@
 
     }
 
+    // 繰り返し処理Sample
+
     private List<string> items = new List<string>() {
         "item1",
         "item2",
         "item3",
     };
+
+
+    // データバインディング
+
+    private bool showPassword;
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+        return PasswordChanged.InvokeAsync(Password);
+    }
 }
