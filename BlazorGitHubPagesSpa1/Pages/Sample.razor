@@ -13,6 +13,23 @@
 <!--@@onclick="イベント名"でクリックイベント-->
 <button class="@ButtonClass" @onclick="ChangeButtonTitle">@ButtonTitle</button>
 
+<h2>レンダリング</h2>
+
+<h3>条件付き</h3>
+@if (ButtonTitle == "ON")
+{
+    <p> Button is "ON" now!</p>
+}
+
+<h3>繰り返し処理</h3>
+<ul>
+    @foreach (var item in items)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+
 @code {
     private string Text = "Sample Variable";
 
@@ -26,4 +43,10 @@
             "btn btn-outline-secondary" : "btn btn-outline-primary";
 
     }
+
+    private List<string> items = new List<string>() {
+        "item1",
+        "item2",
+        "item3",
+    };
 }
